@@ -14,14 +14,20 @@ pipeline {
          }
       }
       stage('Package Stage') {
-      	steps {
+         steps {
             echo 'Packaging project'
-      		sh 'mvn clean package'
-      	}
+            sh 'mvn clean package'
+         }
       }
       stage('Deployment Stage') {
          steps {
             sh '/var/lib/jenkins/scripts/grizzlystore_configserver.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_namingserver.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_apigateway.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_user.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_item.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_order.sh'
+            sh '/var/lib/jenkins/scripts/grizzlystore_googleuser.sh'
          }
       }
    }
